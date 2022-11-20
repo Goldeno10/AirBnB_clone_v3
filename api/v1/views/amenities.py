@@ -17,7 +17,8 @@ def amenities_endpoint(amenity_id):
     """Handle all requests to the /amenities endpoints."""
     if request.method == "GET":
         if amenity_id is None:
-            return [obj.to_dict() for obj in storage.all(amenity.Amenity).values()]
+            return [obj.to_dict() for obj in
+                    storage.all(amenity.Amenity).values()]
         elif amenity_id is not None:
             am_obj = storage.get("Amenity", amenity_id)
             if not am_obj:

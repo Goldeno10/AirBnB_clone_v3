@@ -14,7 +14,7 @@ def get_reviews(review_id):
     """Handles get, delete and put requests to the reviews endpoint."""
     if request.method == "GET":
         if review_id is None:
-            return  [am_obj.to_dict() for am_obj in\
+            return [am_obj.to_dict() for am_obj in
                     storage.all(review.Review).values()]
         elif review_id is not None:
             am_obj = storage.get("Review", review_id)
@@ -44,19 +44,23 @@ def get_reviews(review_id):
         return (jsonify({}))
 
 
-@app_views.route("/places/<place_id>/reviews", strict_slashes=False, methods=["GET"])
+@app_views.route("/places/<place_id>/reviews",
+                 strict_slashes=False,
+                 methods=["GET"])
 def get_place_review(place_id):
     """Handle get request to place reviews."""
     if place_id:
         p_obj = storage.get("Place", place_id)
         if not p_obj:
             abort(404)
-        pl_rv = [obj.to_dict() for obj in storage.all(review.Review).values()\
-                if obj.place_id == place_id]
+        pl_rv = [obj.to_dict() for obj in storage.all(review.Review).values()
+                 if obj.place_id == place_id]
         return pl_rv
 
 
-@app_views.route("/places/<place_id>/reviews", strict_slashes=False, methods=["POST"])
+@app_views.route("/places/<place_id>/reviews",
+                 strict_slashes=False,
+                 methods=["POST"])
 def post_place_review(place_id):
     """Handle post request to place reviews."""
     pl_obj = storage.get("Place", place_id)

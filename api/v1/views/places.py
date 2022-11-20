@@ -14,7 +14,8 @@ def get_place(place_id):
     """Handles get, delete, put request to the places endpoint"""
     if request.method == "GET":
         if place_id is None:
-            return [obj.to_dict() for obj in storage.all(place.Place).values()]
+            return [obj.to_dict() for obj in
+                    storage.all(place.Place).values()]
         elif place_id is not None:
             pl_obj = storage.get("Place", place_id)
             if not pl_obj:
@@ -42,17 +43,22 @@ def get_place(place_id):
         storage.save()
         return (jsonify({}))
 
-@app_views.route("/cities/<city_id>/places", strict_slashes=False, methods=["GET"])
+
+@app_views.route("/cities/<city_id>/places",
+                 strict_slashes=False,
+                 methods=["GET"])
 def get_city_places(city_id):
     """Handles get requests to city places endpoint."""
     ci_obj = storage.get("City", city_id)
     if not ci_obj:
         abort(404)
-    return [place for place in storage.all(place.Place).values()\
+    return [place for place in storage.all(place.Place).values()
             if place.city_id == city_id]
 
 
-@app_views.route("/cities/<city_id>/places", strict_slashes=False, methods=["POST"])
+@app_views.route("/cities/<city_id>/places",
+                 strict_slashes=False,
+                 methods=["POST"])
 def post_place(city_id):
     """Handles post requests to city places endpoint."""
     ci_obj = storage.get("City", city_id)

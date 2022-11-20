@@ -21,7 +21,7 @@ def get_city(city_id):
             ci_obj = storage.get("City", city_id)
             if not ci_obj:
                 abort(404)
-            return jsonify(obj.to_dict())
+            return jsonify(ci_obj.to_dict())
     elif request.method == "PUT":
         try:
             put_data = request.get_json()
@@ -44,17 +44,21 @@ def get_city(city_id):
         return (jsonify({}))
 
 
-@app_views.route("/states/<state_id>/cities", strict_slashes=False, methods=["GET"])
+@app_views.route("/states/<state_id>/cities",
+                 strict_slashes=False,
+                 methods=["GET"])
 def get_state_cities(state_id):
     """Handles get requests to states cities."""
     st_obj = storage.get("State", state_id)
     if not st_obj:
         abort(404)
-    return [ci_obj.to_dict() for ci_obj in storage.all(city.City).values()\
+    return [ci_obj.to_dict() for ci_obj in storage.all(city.City).values()
             if ci_obj.state_id == state_id]
 
 
-@app_views.route("/states/<state_id>/cities", strict_slashes=False, methods=["POST"])
+@app_views.route("/states/<state_id>/cities",
+                 strict_slashes=False,
+                 methods=["POST"])
 def post_state_cities(state_id):
     """Handles post requests to states cities."""
     st_obj = storage.get("State", state_id)
