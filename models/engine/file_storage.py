@@ -55,11 +55,13 @@ class FileStorage:
                 jo = json.load(f)
             for key in jo:
                 self.__objects[key] = classes[jo[key]["__class__"]](**jo[key])
-        except:
+        except Exception:
             pass
 
     def get(self, cls, id):
-        """Returns the object based on the class and its ID, or None if not found"""
+        """Returns the object based on the class and its ID,
+        None if not found
+        """
         if cls is not None and type(cls) is str and id is not None and\
            type(id) is str and cls in classes:
             key = f"{cls}.{id}"
