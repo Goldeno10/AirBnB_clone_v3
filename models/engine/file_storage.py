@@ -59,13 +59,7 @@ class FileStorage:
             pass
 
     def get(self, cls, id):
-<<<<<<< HEAD
-        """Returns the object based on the class and its ID,
-        None if not found
-        """
-=======
         """Returns the object based on the class and its ID, or None if not found."""
->>>>>>> storage_get_count
         if cls is not None and type(cls) is str and id is not None and\
            type(id) is str and cls in classes:
             key = "{}.{}".format(cls, id)
