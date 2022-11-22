@@ -59,15 +59,16 @@ class FileStorage:
             pass
 
     def get(self, cls, id):
-        """Returns the object based on the class and its ID, or None if not found."""
-        if cls is not None and type(cls) is str and id is not None and\
-           type(id) is str and cls in classes:
+        """Returns the object based on the class and its ID,
+        or None if not found.
+        """
+        if cls is not None and type(cls) is str and id is not None \
+                and type(id) is str and cls in classes:
             key = "{}.{}".format(cls, id)
             obj = self.__objects.get(key, None)
             return obj
         elif cls in classes.values():
-            print("class ==")
-            key = "{}.{}".format(cls.__name__), id)
+            key = "{}.{}".format(cls.__name__, id)
             obj = self.__objects.get(key, None)
             return obj
         else:
