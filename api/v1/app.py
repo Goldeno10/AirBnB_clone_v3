@@ -12,9 +12,11 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
+
 @app.teardown_appcontext
 def tear_down(exception):
     storage.close()
+
 
 @app.errorhandler(404)
 def handle_404(error):
